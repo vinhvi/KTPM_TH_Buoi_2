@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import org.apache.log4j.BasicConfigurator;
 
 public class TopicPublisher {
-	public static void main(String[] args) throws Exception {
+	public static void sendMessge(String messge) throws Exception {
 		// thiết lập môi trường cho JMS logging
 		BasicConfigurator.configure();
 		// thiết lập môi trường cho JJNDI
@@ -34,13 +34,12 @@ public class TopicPublisher {
 		// tạo producer
 		MessageProducer producer = session.createProducer(destination);
 		// Tạo 1 message
-		Message msg = session.createTextMessage("xin chào người ẹp");
+		Message msg = session.createTextMessage(messge);
 		// gửi
 		producer.send(msg);
 		// shutdown connection
 		session.close();
 		con.close();
-		System.out.println("Finished...");
 	}
 
 }

@@ -12,10 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-public class Client_1 extends JFrame {
+public class Client_1 extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -44,14 +49,14 @@ public class Client_1 extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		textField = new JTextField();
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setBounds(30, 95, 286, 39);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Send");
+
+		btnNewButton = new JButton("Send");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -59,5 +64,20 @@ public class Client_1 extends JFrame {
 		});
 		btnNewButton.setBounds(341, 98, 85, 33);
 		contentPane.add(btnNewButton);
+		btnNewButton.addActionListener(this);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		if (obj.equals(btnNewButton)) {
+			try {
+				String mess = textField.getText().toString();
+				TopicPublisher.sendMessge(mess);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
 	}
 }
